@@ -5,7 +5,7 @@ pub fn selector() -> Bytes4 {
 
     let selector_word = calldataload(uint!(0));
 
-    let res = (selector_word / mask) >> 224;
+    let res = (selector_word / mask) >> uint!(224);
 
     Bytes4::from(Bytes32::from(res))
 }

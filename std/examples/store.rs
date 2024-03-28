@@ -10,7 +10,7 @@ use patine_std::{
 
 #[no_mangle]
 pub extern "C" fn _store() {
-    sstore(0.into(), caller());
+    sstore(uint!(0), caller());
 
     let mut code = [0u8; datasize(_store_deployed)];
     let offset = dataoffset(_store_deployed);
