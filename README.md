@@ -1,5 +1,5 @@
 # Patine
 
-> EVM Contract in Rust.
+> EVM Contract Library in Rust.
 
 ## Std Library
