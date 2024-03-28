@@ -18,7 +18,7 @@ pub fn uint(input: TokenStream) -> TokenStream {
     let [a, b, c, d] = i.0;
 
     let expand = quote! {
-        ::patine_core::U256::from_raw(#a, #b, #c, #d)
+        ::patine_core::U256::from_raw(#d, #c, #b, #a)
     };
 
     TokenStream::from(expand)

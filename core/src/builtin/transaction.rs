@@ -47,6 +47,7 @@ extern "C" {
     fn __yul_invalid();
 }
 
+#[inline]
 pub fn call(addr: Address, value: U256, gas: U256, input: &[u8], output: &mut [u8]) -> U256 {
     U256(unsafe {
         __yul_call(
@@ -61,6 +62,7 @@ pub fn call(addr: Address, value: U256, gas: U256, input: &[u8], output: &mut [u
     })
 }
 
+#[inline]
 pub fn callcode(addr: Address, value: U256, gas: U256, input: &[u8], output: &mut [u8]) -> U256 {
     U256(unsafe {
         __yul_callcode(
@@ -75,6 +77,7 @@ pub fn callcode(addr: Address, value: U256, gas: U256, input: &[u8], output: &mu
     })
 }
 
+#[inline]
 pub fn delegatecall(addr: Address, gas: U256, input: &[u8], output: &mut [u8]) -> U256 {
     U256(unsafe {
         __yul_delegatecall(
@@ -88,6 +91,7 @@ pub fn delegatecall(addr: Address, gas: U256, input: &[u8], output: &mut [u8]) -
     })
 }
 
+#[inline]
 pub fn staticcall(addr: Address, gas: U256, input: &[u8], output: &mut [u8]) -> U256 {
     U256(unsafe {
         __yul_staticcall(
@@ -101,18 +105,22 @@ pub fn staticcall(addr: Address, gas: U256, input: &[u8], output: &mut [u8]) -> 
     })
 }
 
+#[inline]
 pub fn ret(data: &[u8]) {
     unsafe { __yul_return(data.as_ptr(), data.len()) }
 }
 
+#[inline]
 pub fn revert(data: &[u8]) {
     unsafe { __yul_revert(data.as_ptr(), data.len()) }
 }
 
+#[inline]
 pub fn selfdestruct(addr: Address) {
     unsafe { __yul_selfdestruct(addr.0) }
 }
 
+#[inline]
 pub fn invalid() {
     unsafe { __yul_invalid() }
 }

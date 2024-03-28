@@ -20,14 +20,17 @@ const fn __yul_dataoffset(_f: EntryFunction) -> usize {
     0
 }
 
+#[inline]
 pub const fn datasize(func: EntryFunction) -> usize {
     __yul_datasize(func)
 }
 
+#[inline]
 pub fn dataoffset(func: EntryFunction) -> usize {
     __yul_dataoffset(func)
 }
 
+#[inline]
 pub fn datacopy(target: &mut [u8], offset: usize) {
     unsafe { __yul_datacopy(target.as_mut_ptr(), offset, target.len()) }
 }
