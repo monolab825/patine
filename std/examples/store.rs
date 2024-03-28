@@ -3,7 +3,10 @@
 use patine_core::builtin::{
     caller, callvalue, datacopy, dataoffset, datasize, iszero, ret, sstore,
 };
-use patine_std::require;
+use patine_std::{
+    builtin::{calldataload, revert, sload},
+    require, selector, uint, U256,
+};
 
 #[no_mangle]
 pub extern "C" fn erc20() {
@@ -17,6 +20,22 @@ pub extern "C" fn erc20() {
     ret(&code)
 }
 
+fn retrieve() {
+    let v = sload(uint!(0));
+}
+
+fn store() {
+    let v = calldataload(uint!(4));
+
+    sstore(uint!(0), v)
+}
+
 pub extern "C" fn erc20_deployed() {
-    require(iszero(callvalue()))
+    require(iszero(callvalue()));
+
+    match selector().unbox() {
+        0x2e64cec1 => retrieve(),
+        0x6057361d => store(),
+        _ => revert(&[]),
+    }
 }

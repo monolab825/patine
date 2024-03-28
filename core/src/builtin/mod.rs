@@ -27,5 +27,8 @@ pub use log::*;
 mod data;
 pub use data::*;
 
-// mod chain;
-// pub use chain::*;
+mod memory;
+pub use memory::*;
+
+mod chain;
+pub use chain::*;
