@@ -6,3 +6,6 @@ members = ["core", "macros", "std"]
 [workspace.dependencies]
 patine-core = { version = "0.1", path = "./core" }
 patine-macros = { version = "0.1", path = "./macros" }
+
+[profile.release]
+panic = "abort"

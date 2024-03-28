@@ -7,8 +7,5 @@ edition = "2021"
 name = "store"
 crate-type = ["lib"]
 
-[profile.release]
-panic = "abort"
-
 [dependencies]
 patine-core.workspace = true
