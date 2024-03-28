@@ -1,7 +1,9 @@
 // use crate::{builtin, Bytes32};
 
+use crate::builtin::Cnt;
+
 #[repr(C)]
-pub struct Address(pub(crate) u32);
+pub struct Address(pub(crate) Cnt);
 
 // impl From<Bytes32> for Address {
 //     fn from(value: Bytes32) -> Self {

@@ -11,10 +11,4 @@ pub use bytes::*;
 mod address;
 pub use address::*;
 
-// mod context;
-// pub use context::*;
-//
-// pub mod storage;
-//
-// mod keccak256;
-// pub use keccak256::*;
+pub use patine_macros::*;

@@ -1,7 +1,4 @@
-pub(crate) type Cnt = u32;
-
-mod literal;
-pub use literal::*;
+pub(crate) type Cnt = u64;
 
 mod value;
 pub use value::*;

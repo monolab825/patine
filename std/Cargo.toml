@@ -3,4 +3,9 @@ name = "patine-std"
 version = "0.1.0"
 edition = "2021"
 
+[[example]]
+name = "store"
+crate-type = ["lib"]
+
 [dependencies]
+patine-core.workspace = true

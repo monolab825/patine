@@ -14,7 +14,7 @@ extern "C" {
     fn __yul_calldatacopy(t: *const u8, f: Cnt, s: usize);
 
     fn __yul_codesize() -> Cnt;
-    fn __yul_codecopy(t: *mut u8, f: u32, s: usize);
+    fn __yul_codecopy(t: *mut u8, f: Cnt, s: usize);
 
     fn __yul_returndatasize() -> Cnt;
     fn __yul_returndatacopy(t: *const u8, f: Cnt, s: usize);

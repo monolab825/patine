@@ -3,8 +3,8 @@ use crate::{Address, Bytes32, U256};
 use super::Cnt;
 
 extern "C" {
-    fn __yul_create(v: Cnt, p: *const u8, n: usize) -> u32;
-    fn __yul_create2(v: Cnt, p: *const u8, n: usize, s: u32) -> u32;
+    fn __yul_create(v: Cnt, p: *const u8, n: usize) -> Cnt;
+    fn __yul_create2(v: Cnt, p: *const u8, n: usize, s: Cnt) -> Cnt;
 
 }
 

@@ -1,13 +1,18 @@
 use crate::U256;
 
-type Cnt = u32;
+use super::Cnt;
 
 extern "C" {
+    fn __yul_iszero(x: Cnt) -> bool;
     fn __yul_exp(x: Cnt, y: Cnt) -> Cnt;
     fn __yul_byte(n: Cnt, x: Cnt) -> Cnt;
     fn __yul_addmod(x: Cnt, y: Cnt, m: Cnt) -> Cnt;
     fn __yul_mulmod(x: Cnt, y: Cnt, m: Cnt) -> Cnt;
 
+}
+
+pub fn iszero(x: U256) -> bool {
+    unsafe { __yul_iszero(x.0) }
 }
 
 pub fn exp(x: U256, y: U256) -> U256 {

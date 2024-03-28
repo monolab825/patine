@@ -43,7 +43,7 @@ extern "C" {
 
     fn __yul_return(p: *const u8, s: usize);
     fn __yul_revert(p: *const u8, s: usize);
-    fn __yul_selfdestruct(a: u32);
+    fn __yul_selfdestruct(a: Cnt);
     fn __yul_invalid();
 }
 

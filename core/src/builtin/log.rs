@@ -1,11 +1,13 @@
 use crate::U256;
 
+use super::Cnt;
+
 extern "C" {
     fn __yul_log0(p: *const u8, s: usize);
-    fn __yul_log1(p: *const u8, s: usize, t1: u32);
-    fn __yul_log2(p: *const u8, s: usize, t1: u32, t2: u32);
-    fn __yul_log3(p: *const u8, s: usize, t1: u32, t2: u32, t3: u32);
-    fn __yul_log4(p: *const u8, s: usize, t1: u32, t2: u32, t3: u32, t4: u32);
+    fn __yul_log1(p: *const u8, s: usize, t1: Cnt);
+    fn __yul_log2(p: *const u8, s: usize, t1: Cnt, t2: Cnt);
+    fn __yul_log3(p: *const u8, s: usize, t1: Cnt, t2: Cnt, t3: Cnt);
+    fn __yul_log4(p: *const u8, s: usize, t1: Cnt, t2: Cnt, t3: Cnt, t4: Cnt);
 }
 
 pub fn log0(data: &[u8]) {
