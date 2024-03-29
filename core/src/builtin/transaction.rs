@@ -1,3 +1,5 @@
+use core::ptr;
+
 use crate::{Address, U256};
 
 use super::Cnt;
@@ -108,6 +110,11 @@ pub fn staticcall(addr: Address, gas: U256, input: &[u8], output: &mut [u8]) -> 
 #[inline]
 pub fn ret(data: &[u8]) {
     unsafe { __yul_return(data.as_ptr(), data.len()) }
+}
+
+#[inline]
+pub fn revert_null() {
+    unsafe { __yul_revert(ptr::null(), 0) }
 }
 
 #[inline]

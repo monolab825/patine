@@ -1,4 +1,5 @@
 #![no_std]
+#![feature(const_refs_to_static)]
 
 pub mod builtin;
 

@@ -4,7 +4,7 @@ use patine_core::builtin::{
     caller, callvalue, datacopy, dataoffset, datasize, iszero, ret, sstore,
 };
 use patine_std::{
-    builtin::{calldataload, mstore, revert, sload},
+    builtin::{calldataload, mstore, revert_null, sload},
     require, selector, uint,
 };
 
@@ -42,6 +42,6 @@ pub extern "C" fn _store_deployed() {
     match selector().unbox() {
         0x2e64cec1 => retrieve(),
         0x6057361d => store(),
-        _ => revert(&[]),
+        _ => revert_null(),
     }
 }
