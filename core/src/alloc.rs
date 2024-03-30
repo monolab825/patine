@@ -26,6 +26,7 @@ fn __yul_allocate(len: usize) -> *mut u8 {
     ptr::from_exposed_addr_mut(ptr as usize)
 }
 
+#[inline]
 pub fn allocate<'a>(len: usize) -> &'a mut [u8] {
     let ptr = __yul_allocate(len);
     unsafe { slice::from_raw_parts_mut(ptr, len) }
