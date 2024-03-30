@@ -5,7 +5,7 @@ use crate::{builtin::Cnt, Bytes32};
 extern "C" {
     fn __yul__ext_literal(x0: Cnt, x1: Cnt, x2: Cnt, x3: Cnt) -> Cnt;
 
-    fn __yul_add(x0: Cnt, x1: Cnt) -> Cnt;
+    pub(crate) fn __yul_add(x0: Cnt, x1: Cnt) -> Cnt;
     fn __yul_sub(x0: Cnt, x1: Cnt) -> Cnt;
     fn __yul_mul(x0: Cnt, x1: Cnt) -> Cnt;
     fn __yul_div(x0: Cnt, x1: Cnt) -> Cnt;

@@ -3,8 +3,8 @@ use crate::U256;
 use super::Cnt;
 
 extern "C" {
-    fn __yul_mload(p: *const u8) -> Cnt;
-    fn __yul_mstore(p: *mut u8, v: Cnt);
+    pub(crate) fn __yul_mload(p: *const u8) -> Cnt;
+    pub(crate) fn __yul_mstore(p: *mut u8, v: Cnt);
     fn __yul_mstore8(p: *mut u8, v: Cnt);
 }
 

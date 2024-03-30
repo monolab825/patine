@@ -3,7 +3,7 @@ use crate::U256;
 use super::Cnt;
 
 extern "C" {
-    fn __yul_iszero(x: Cnt) -> bool;
+    pub(crate) fn __yul_iszero(x: Cnt) -> bool;
     fn __yul_exp(x: Cnt, y: Cnt) -> Cnt;
     fn __yul_byte(n: Cnt, x: Cnt) -> Cnt;
     fn __yul_addmod(x: Cnt, y: Cnt, m: Cnt) -> Cnt;

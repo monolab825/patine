@@ -1,5 +1,5 @@
 #![no_std]
-#![feature(const_refs_to_static)]
+#![feature(exposed_provenance)]
 
 pub mod builtin;
 
@@ -11,5 +11,8 @@ pub use bytes::*;
 
 mod address;
 pub use address::*;
+
+mod alloc;
+pub use alloc::*;
 
 pub use patine_macros::*;

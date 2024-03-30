@@ -4,6 +4,7 @@ use patine_core::builtin::{
     caller, callvalue, datacopy, dataoffset, datasize, iszero, ret, sstore,
 };
 use patine_std::{
+    allocate,
     builtin::{calldataload, mstore, revert_null, sload},
     require, selector, uint,
 };
@@ -12,12 +13,13 @@ use patine_std::{
 pub extern "C" fn _store() {
     sstore(uint!(0), caller());
 
-    let mut code = [0u8; datasize(_store_deployed)];
+    let code = allocate(datasize(_store_deployed));
+
     let offset = dataoffset(_store_deployed);
 
-    datacopy(&mut code, offset);
+    datacopy(code, offset);
 
-    ret(&code)
+    ret(code)
 }
 
 fn retrieve() {

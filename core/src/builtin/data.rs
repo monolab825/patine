@@ -5,30 +5,19 @@ pub type EntryFunction = extern "C" fn();
 extern "C" {
     fn __yul_datacopy(t: *mut u8, f: usize, l: usize);
 
-}
+    fn __yul_datasize(_f: EntryFunction) -> usize;
 
-/// NOTE: This function is just a placeholeder, the compiler will remove it.
-#[inline(never)]
-#[no_mangle]
-const fn __yul_datasize(_f: EntryFunction) -> usize {
-    0x1654
-}
-
-/// NOTE: This function is just a placeholeder, the compiler will remove it.
-#[inline(never)]
-#[no_mangle]
-const fn __yul_dataoffset(_f: EntryFunction) -> usize {
-    0x1653
+    fn __yul_dataoffset(_f: EntryFunction) -> usize;
 }
 
 #[inline]
-pub const fn datasize(func: EntryFunction) -> usize {
-    __yul_datasize(func)
+pub fn datasize(func: EntryFunction) -> usize {
+    unsafe { __yul_datasize(func) }
 }
 
 #[inline]
 pub fn dataoffset(func: EntryFunction) -> usize {
-    __yul_dataoffset(func)
+    unsafe { __yul_dataoffset(func) }
 }
 
 #[inline]
