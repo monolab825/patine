@@ -7,5 +7,9 @@ edition = "2021"
 name = "store"
 crate-type = ["lib"]
 
+[[example]]
+name = "array"
+crate-type = ["lib"]
+
 [dependencies]
 patine-core.workspace = true

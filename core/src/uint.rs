@@ -38,6 +38,8 @@ macro_rules! defined_uint_ops {
 macro_rules! defined_uint {
     ($s:ident) => {
         #[repr(C)]
+        #[repr(align(32))]
+        #[derive(Default, Clone, Copy)]
         pub struct $s(pub(crate) Cnt);
 
         impl $s {
