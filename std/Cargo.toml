@@ -11,5 +11,9 @@ crate-type = ["lib"]
 name = "array"
 crate-type = ["lib"]
 
+[[example]]
+name = "contract"
+crate-type = ["lib"]
+
 [dependencies]
 patine-core.workspace = true

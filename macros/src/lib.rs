@@ -24,7 +24,7 @@ pub fn uint(input: TokenStream) -> TokenStream {
     TokenStream::from(expand)
 }
 
-#[proc_macro]
-pub fn bytes(input: TokenStream) -> TokenStream {
+#[proc_macro_attribute]
+pub fn contract(input: TokenStream, _args: TokenStream) -> TokenStream {
     input
 }
