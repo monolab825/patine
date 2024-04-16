@@ -1,4 +1,5 @@
-use patine_core::{builtin::calldataload, uint, Bytes32, Bytes4};
+use patine_core::{builtin::calldataload, Bytes32, Bytes4};
+use patine_macros::uint;
 
 pub fn selector() -> Bytes4 {
     let selector_word = calldataload(uint!(0));

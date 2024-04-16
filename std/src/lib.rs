@@ -10,3 +10,4 @@ mod storage;
 pub use storage::*;
 
 pub use patine_core::*;
+pub use patine_macros::*;

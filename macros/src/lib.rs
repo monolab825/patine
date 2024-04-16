@@ -24,6 +24,16 @@ pub fn uint(input: TokenStream) -> TokenStream {
     TokenStream::from(expand)
 }
 
+#[proc_macro]
+pub fn abi_encode(input: TokenStream) -> TokenStream {
+    input
+}
+
+#[proc_macro]
+pub fn abi_decode(input: TokenStream) -> TokenStream {
+    input
+}
+
 #[proc_macro_attribute]
 pub fn contract(input: TokenStream, _args: TokenStream) -> TokenStream {
     input

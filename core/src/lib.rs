@@ -14,5 +14,3 @@ pub use address::*;
 
 mod alloc;
 pub use alloc::*;
-
-pub use patine_macros::*;
