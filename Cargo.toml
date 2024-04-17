@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = [ "cargo-evm","core", "macros", "std"]
+members = ["cargo-evm", "core", "macros"]
 
 [workspace.dependencies]
 patine-core = { version = "0.1", path = "./core" }

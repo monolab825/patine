@@ -1,32 +1,29 @@
-use crate::U256;
+use crate::{ffi, AsNativeType, FromNativeType, U256};
 
-use super::Cnt;
-
-extern "C" {
-    fn __yul_sload(p: Cnt) -> Cnt;
-    fn __yul_sstore(p: Cnt, v: Cnt);
-
-    fn __yul_tload(p: Cnt) -> Cnt;
-    fn __yul_tstore(p: Cnt, v: Cnt);
-
+pub fn sload<T>(p: U256) -> T
+where
+    T: FromNativeType,
+{
+    T::from_native_type(unsafe { ffi::__yul_sload(p.0) })
 }
 
-#[inline]
-pub fn sload(position: U256) -> U256 {
-    U256(unsafe { __yul_sload(position.0) })
+pub fn sstore<T>(p: U256, v: T)
+where
+    T: AsNativeType,
+{
+    unsafe { ffi::__yul_sstore(p.0, v.as_native_type()) }
 }
 
-#[inline]
-pub fn sstore(position: U256, value: U256) {
-    unsafe { __yul_sstore(position.0, value.0) }
+pub fn tload<T>(p: U256) -> T
+where
+    T: FromNativeType,
+{
+    T::from_native_type(unsafe { ffi::__yul_tload(p.0) })
 }
 
-#[inline]
-pub fn tload(position: U256) -> U256 {
-    U256(unsafe { __yul_tload(position.0) })
-}
-
-#[inline]
-pub fn tstore(position: U256, value: U256) {
-    unsafe { __yul_tstore(position.0, value.0) }
+pub fn tstore<T>(p: U256, v: T)
+where
+    T: AsNativeType,
+{
+    unsafe { ffi::__yul_tstore(p.0, v.as_native_type()) }
 }

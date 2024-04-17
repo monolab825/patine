@@ -1,7 +1,19 @@
-use crate::{builtin::Cnt, U256};
+use crate::{ffi::NativeType, AsNativeType, FromNativeType, U256};
 
 #[repr(C)]
-pub struct Bytes32(pub(crate) Cnt);
+pub struct Bytes32(pub(crate) NativeType);
+
+impl AsNativeType for Bytes32 {
+    fn as_native_type(&self) -> NativeType {
+        self.0
+    }
+}
+
+impl FromNativeType for Bytes32 {
+    fn from_native_type(x: NativeType) -> Self {
+        Self(x)
+    }
+}
 
 impl From<U256> for Bytes32 {
     fn from(value: U256) -> Self {
@@ -9,23 +21,23 @@ impl From<U256> for Bytes32 {
     }
 }
 
-#[repr(C)]
-pub struct Bytes4(pub(crate) Cnt);
-
-impl Bytes4 {
-    pub fn unbox(&self) -> Cnt {
-        self.0
-    }
-}
-
-impl From<u32> for Bytes4 {
-    fn from(value: u32) -> Self {
-        Self(value.into())
-    }
-}
-
-impl From<Bytes32> for Bytes4 {
-    fn from(value: Bytes32) -> Self {
-        Self(value.0)
-    }
-}
+// #[repr(C)]
+// pub struct Bytes4(pub(crate) NativeType);
+//
+// impl Bytes4 {
+//     pub fn unbox(&self) -> NativeType {
+//         self.0
+//     }
+// }
+//
+// impl From<u32> for Bytes4 {
+//     fn from(value: u32) -> Self {
+//         Self(value.into())
+//     }
+// }
+//
+// impl From<Bytes32> for Bytes4 {
+//     fn from(value: Bytes32) -> Self {
+//         Self(value.0)
+//     }
+// }

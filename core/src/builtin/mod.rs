@@ -1,34 +1,60 @@
-pub(crate) type Cnt = u64;
+pub mod number;
+pub use number::*;
 
-mod value;
-pub use value::*;
-
-mod keccak;
+pub mod keccak;
 pub use keccak::*;
 
-mod storage;
-pub use storage::*;
+pub mod vm;
+pub use vm::*;
 
-mod context;
-pub use context::*;
-
-mod address;
-pub use address::*;
-
-mod contract;
-pub use contract::*;
-
-mod transaction;
-pub use transaction::*;
-
-mod log;
-pub use log::*;
-
-mod data;
-pub use data::*;
-
-mod memory;
+pub mod memory;
 pub use memory::*;
 
-mod chain;
-pub use chain::*;
+pub mod storage;
+pub use storage::*;
+
+pub mod msg;
+pub use msg::*;
+
+pub mod account;
+pub use account::*;
+
+#[macro_export]
+macro_rules! define_two_op {
+    ($op:ident, $x:ty, $y:ty, $r:ident, $f:ident) => {
+        #[inline]
+        pub fn $op(x: $x, y: $y) -> $r {
+            $r(unsafe { ffi::$f(x.0, y.0) })
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! define_two_noreturn_op {
+    ($op:ident, $x:ty, $y:ty, $f:ident) => {
+        #[inline]
+        pub fn $op(x: $x, y: $y) {
+            unsafe { ffi::$f(x.0, y.0) }
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! define_one {
+    ($op:ident, $x:ty, $r:ident, $f:ident) => {
+        #[inline]
+        pub fn $op(x: $x) -> $r {
+            $r(unsafe { ffi::$f(x.0) })
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! define_zero {
+    ($op:ident, $r:ident, $f:ident) => {
+        #[inline]
+        pub fn $op() -> $r {
+            $r(unsafe { ffi::$f() })
+        }
+    };
+}

@@ -33,8 +33,8 @@ pub fn blobbasefee() -> U256 {
 }
 
 #[inline]
-pub fn origin() -> U256 {
-    U256(unsafe { __yul_origin() })
+pub fn origin() -> Address {
+    Address(unsafe { __yul_origin() })
 }
 
 #[inline]

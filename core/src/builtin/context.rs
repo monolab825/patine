@@ -1,4 +1,4 @@
-use crate::U256;
+use crate::{Address, U256};
 
 use super::Cnt;
 
@@ -13,7 +13,7 @@ extern "C" {
     fn __yul_calldatasize() -> Cnt;
     fn __yul_calldatacopy(t: *const u8, f: Cnt, s: usize);
 
-    fn __yul_codesize() -> Cnt;
+    fn __yul_codesize() -> usize;
     fn __yul_codecopy(t: *mut u8, f: Cnt, s: usize);
 
     fn __yul_returndatasize() -> Cnt;
@@ -29,8 +29,8 @@ pub fn gas() -> U256 {
 
 /// contract address at execution
 #[inline]
-pub fn address() -> U256 {
-    U256(unsafe { __yul_address() })
+pub fn address() -> Address {
+    Address(unsafe { __yul_address() })
 }
 
 #[inline]
@@ -40,8 +40,8 @@ pub fn selfbalance() -> U256 {
 
 /// caller
 #[inline]
-pub fn caller() -> U256 {
-    U256(unsafe { __yul_caller() })
+pub fn caller() -> Address {
+    Address(unsafe { __yul_caller() })
 }
 
 /// value sent to this contract
@@ -66,8 +66,8 @@ pub fn calldatacopy(data: &mut [u8], f: U256) {
 }
 
 #[inline]
-pub fn codesize() -> U256 {
-    U256(unsafe { __yul_codesize() })
+pub fn codesize() -> usize {
+    unsafe { __yul_codesize() }
 }
 
 #[inline]

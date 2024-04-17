@@ -1,24 +1,34 @@
-use crate::U256;
+use crate::{
+    ffi::{__yul_mload, __yul_msize, __yul_mstore, __yul_mstore8},
+    AsNativeType, FromNativeType,
+};
 
-use super::Cnt;
-
-extern "C" {
-    pub(crate) fn __yul_mload(p: *const u8) -> Cnt;
-    pub(crate) fn __yul_mstore(p: *mut u8, v: Cnt);
-    fn __yul_mstore8(p: *mut u8, v: Cnt);
+#[inline]
+pub fn mload<T>(a: &[u8]) -> T
+where
+    T: FromNativeType,
+{
+    let r = unsafe { __yul_mload(a.as_ptr()) };
+    T::from_native_type(r)
 }
 
 #[inline]
-pub fn mload(a: &[u8]) -> U256 {
-    U256(unsafe { __yul_mload(a.as_ptr()) })
+pub fn mstore<T>(v: T, target: &mut [u8])
+where
+    T: AsNativeType,
+{
+    unsafe { __yul_mstore(target.as_mut_ptr(), v.as_native_type()) }
 }
 
 #[inline]
-pub fn mstore(v: U256, target: &mut [u8]) {
-    unsafe { __yul_mstore(target.as_mut_ptr(), v.0) }
+pub fn mstore8<T>(v: T, target: &mut [u8])
+where
+    T: AsNativeType,
+{
+    unsafe { __yul_mstore8(target.as_mut_ptr(), v.as_native_type()) }
 }
 
 #[inline]
-pub fn mstore8(v: U256, target: &mut [u8]) {
-    unsafe { __yul_mstore(target.as_mut_ptr(), v.0) }
+pub fn msize() -> usize {
+    unsafe { __yul_msize() }
 }

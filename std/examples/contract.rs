@@ -1,20 +1,33 @@
-use patine_std::contract;
+use patine_std::{contract, Address, Contract};
 
-#[contract]
+#[derive(Default)]
 pub struct ExampleContract {
-    store: Value<U256, Storage>,
-
-    mapping: Map<U256, U256, Storage>,
-
-    #[ctx]
-    ctx: Context,
+    __address: Option<Address>,
 }
 
-#[contract]
-impl ExampleContract {
-    #[constructor]
-    pub fn new(&mut self) {}
+impl Contract for ExampleContract {
+    fn new(address: Address) -> Self {
+        Self {
+            __address: Some(address),
+        }
+    }
 
-    #[entry]
-    pub fn entry(&mut self) {}
+    fn selfaddress(&self) -> Option<&Address> {
+        self.__address.as_ref()
+    }
+}
+
+impl ExampleContract {
+    fn constructor(&mut self) {
+        let address = self.address();
+    }
+
+    fn entry(&mut self) {}
+}
+
+#[no_mangle]
+pub extern "C" fn __ExampleContract_constructor() {
+    let mut contract = ExampleContract::default();
+
+    contract.constructor();
 }

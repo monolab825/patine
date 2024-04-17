@@ -1,11 +1,4 @@
-use crate::U256;
-
-use super::Cnt;
-
-extern "C" {
-    fn __yul_keccak256(ptr: *const u8, len: usize) -> Cnt;
-
-}
+use crate::{ffi::__yul_keccak256, U256};
 
 #[inline]
 pub fn keccak256(data: &[u8]) -> U256 {
