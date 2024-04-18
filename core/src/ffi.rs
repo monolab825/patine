@@ -167,28 +167,22 @@ extern "C" {
     /// end execution with invalid instruction
     pub fn __yul_invalid();
     /// log data mem[p…(p+s))
-    pub fn __yul_log0(p: NativeType, s: NativeType) -> NativeType;
+    pub fn __yul_log0(p: *const u8, s: usize);
     /// log data mem[p…(p+s)) with topic t1
-    pub fn __yul_log1(p: NativeType, s: NativeType, t1: NativeType) -> NativeType;
+    pub fn __yul_log1(p: *const u8, s: usize, t1: NativeType);
     /// log data mem[p…(p+s)) with topics t1, t2
-    pub fn __yul_log2(p: NativeType, s: NativeType, t1: NativeType, t2: NativeType) -> NativeType;
+    pub fn __yul_log2(p: *const u8, s: usize, t1: NativeType, t2: NativeType);
     /// log data mem[p…(p+s)) with topics t1, t2, t3
-    pub fn __yul_log3(
-        p: NativeType,
-        s: NativeType,
-        t1: NativeType,
-        t2: NativeType,
-        t3: NativeType,
-    ) -> NativeType;
+    pub fn __yul_log3(p: *const u8, s: usize, t1: NativeType, t2: NativeType, t3: NativeType);
     /// log data mem[p…(p+s)) with topics t1, t2, t3, t4
     pub fn __yul_log4(
-        p: NativeType,
-        s: NativeType,
+        p: *const u8,
+        s: usize,
         t1: NativeType,
         t2: NativeType,
         t3: NativeType,
         t4: NativeType,
-    ) -> NativeType;
+    );
     /// ID of the executing chain (EIP-1344)
     pub fn __yul_chainid() -> NativeType;
     /// current block’s base fee (EIP-3198 and EIP-1559)

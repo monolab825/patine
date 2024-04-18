@@ -22,6 +22,15 @@ pub use account::*;
 pub mod call;
 pub use call::*;
 
+pub mod event;
+pub use event::*;
+
+pub mod block;
+pub use block::*;
+
+pub mod transaction;
+pub use transaction::*;
+
 #[macro_export]
 macro_rules! define_two_op {
     ($op:ident, $x:ty, $y:ty, $r:ident, $f:ident) => {
