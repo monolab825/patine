@@ -109,11 +109,11 @@ extern "C" {
     /// like codecopy(t, f, s) but take code at address a
     pub fn __yul_extcodecopy(a: NativeType, t: *mut u8, f: usize, s: usize);
     /// size of the last returndata
-    pub fn __yul_returndatasize() -> NativeType;
+    pub fn __yul_returndatasize() -> usize;
     /// copy s bytes from returndata at position f to mem at position t
-    pub fn __yul_returndatacopy(t: NativeType, f: NativeType, s: NativeType) -> NativeType;
+    pub fn __yul_returndatacopy(t: *mut u8, f: usize, s: usize);
     /// copy s bytes from mem at position f to mem at position t
-    pub fn __yul_mcopy(t: NativeType, f: NativeType, s: NativeType) -> NativeType;
+    pub fn __yul_mcopy(t: *mut u8, f: *const u8, s: usize);
     /// code hash of address a
     pub fn __yul_extcodehash(a: NativeType) -> NativeType;
     /// create new contract with code mem[p…(p+n)) and send v wei and return the new address; returns 0 on error

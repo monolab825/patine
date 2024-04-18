@@ -19,6 +19,9 @@ pub use msg::*;
 pub mod account;
 pub use account::*;
 
+pub mod call;
+pub use call::*;
+
 #[macro_export]
 macro_rules! define_two_op {
     ($op:ident, $x:ty, $y:ty, $r:ident, $f:ident) => {

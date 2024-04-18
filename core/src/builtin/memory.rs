@@ -1,5 +1,5 @@
 use crate::{
-    ffi::{__yul_mload, __yul_msize, __yul_mstore, __yul_mstore8},
+    ffi::{__yul_mcopy, __yul_mload, __yul_msize, __yul_mstore, __yul_mstore8},
     AsNativeType, FromNativeType,
 };
 
@@ -31,4 +31,10 @@ where
 #[inline]
 pub fn msize() -> usize {
     unsafe { __yul_msize() }
+}
+
+/// # Safety
+#[inline]
+pub unsafe fn copy(t: *mut u8, f: *const u8, s: usize) {
+    __yul_mcopy(t, f, s)
 }

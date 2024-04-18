@@ -35,3 +35,13 @@ pub fn codesize() -> usize {
 pub fn codecopy(t: &mut [u8], f: usize) {
     unsafe { ffi::__yul_codecopy(t.as_mut_ptr(), f, t.len()) }
 }
+
+#[inline]
+pub fn returndatasize() -> usize {
+    unsafe { ffi::__yul_returndatasize() }
+}
+
+#[inline]
+pub fn returndatacopy(t: &mut [u8], f: usize) {
+    unsafe { ffi::__yul_returndatacopy(t.as_mut_ptr(), f, t.len()) }
+}
