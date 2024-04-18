@@ -117,55 +117,55 @@ extern "C" {
     /// code hash of address a
     pub fn __yul_extcodehash(a: NativeType) -> NativeType;
     /// create new contract with code mem[p…(p+n)) and send v wei and return the new address; returns 0 on error
-    pub fn __yul_create(v: NativeType, p: NativeType, n: NativeType) -> NativeType;
+    pub fn __yul_create(v: NativeType, p: *const u8, n: usize) -> NativeType;
     /// create new contract with code mem[p…(p+n)) at address keccak256(0xff . this . s . keccak256(mem[p…(p+n))) and send v wei and return the new address, where
-    pub fn __yul_create2(v: NativeType, p: NativeType, n: NativeType, s: NativeType) -> NativeType;
+    pub fn __yul_create2(v: NativeType, p: *const u8, n: usize, s: NativeType) -> NativeType;
     /// call contract at address a with input mem[in…(in+insize)) providing g gas and v wei and output area mem[out…(out+outsize)) returning 0 on error (eg. out of gas) and 1 on success
     pub fn __yul_call(
         g: NativeType,
         a: NativeType,
         v: NativeType,
-        input: NativeType,
-        insize: NativeType,
-        out: NativeType,
-        outsize: NativeType,
+        input: *const u8,
+        insize: usize,
+        out: *mut u8,
+        outsize: usize,
     ) -> NativeType;
     /// identical to
     pub fn __yul_callcode(
         g: NativeType,
         a: NativeType,
         v: NativeType,
-        input: NativeType,
-        insize: NativeType,
-        out: NativeType,
-        outsize: NativeType,
+        input: *const u8,
+        insize: usize,
+        out: *mut u8,
+        outsize: usize,
     ) -> NativeType;
     /// identical to
     pub fn __yul_delegatecall(
         g: NativeType,
         a: NativeType,
-        input: NativeType,
-        insize: NativeType,
-        out: NativeType,
-        outsize: NativeType,
+        input: *const u8,
+        insize: usize,
+        out: *mut u8,
+        outsize: usize,
     ) -> NativeType;
     /// identical to
     pub fn __yul_staticcall(
         g: NativeType,
         a: NativeType,
-        input: NativeType,
-        insize: NativeType,
-        out: NativeType,
-        outsize: NativeType,
+        input: *const u8,
+        insize: usize,
+        out: *mut u8,
+        outsize: usize,
     ) -> NativeType;
     /// end execution, return data mem[p…(p+s))
-    pub fn __yul_return(p: NativeType, s: NativeType) -> NativeType;
+    pub fn __yul_return(p: *const u8, s: usize);
     /// end execution, revert state changes, return data mem[p…(p+s))
-    pub fn __yul_revert(p: NativeType, s: NativeType) -> NativeType;
+    pub fn __yul_revert(p: *const u8, s: usize);
     /// end execution, destroy current contract and send funds to a (deprecated)
-    pub fn __yul_selfdestruct(a: NativeType) -> NativeType;
+    pub fn __yul_selfdestruct(a: NativeType);
     /// end execution with invalid instruction
-    pub fn __yul_invalid() -> NativeType;
+    pub fn __yul_invalid();
     /// log data mem[p…(p+s))
     pub fn __yul_log0(p: NativeType, s: NativeType) -> NativeType;
     /// log data mem[p…(p+s)) with topic t1
