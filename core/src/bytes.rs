@@ -1,4 +1,4 @@
-use crate::{ffi::NativeType, AsNativeType, FromNativeType, U256};
+use crate::{ffi::NativeType, AsNativeType, FixedBytes, FromNativeType, U256};
 
 #[repr(C)]
 pub struct Bytes32(pub(crate) NativeType);
@@ -14,6 +14,8 @@ impl FromNativeType for Bytes32 {
         Self(x)
     }
 }
+
+impl FixedBytes for Bytes32 {}
 
 impl From<U256> for Bytes32 {
     fn from(value: U256) -> Self {

@@ -1,6 +1,6 @@
 use core::ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Shl, Shr, Sub};
 
-use crate::{ffi::*, AsNativeType, Bytes32, FromNativeType};
+use crate::{ffi::*, AsNativeType, Bytes32, FromNativeType, Integer};
 
 macro_rules! defined_uint_ops {
     ($s:ty, $t:ty, $f:ident, $n:ident) => {
@@ -32,6 +32,8 @@ impl FromNativeType for U256 {
         Self(x)
     }
 }
+
+impl Integer for U256 {}
 
 // macro_rules! defined_uint {
 //     ($s:ident) => {

@@ -1,4 +1,4 @@
-use crate::{ffi::NativeType, AsNativeType, FromNativeType};
+use crate::{ffi::NativeType, AsNativeType, FromNativeType, Integer};
 
 #[repr(C)]
 #[derive(Default, Clone, Copy)]
@@ -16,10 +16,4 @@ impl FromNativeType for S256 {
     }
 }
 
-// impl From<Bytes32> for Address {
-//     fn from(value: Bytes32) -> Self {
-//         let mask = unsafe { builtin::__yul__ext_literal(0, 0, 0, 0xff, 0xff, 0xff, 0xff, 0xff) };
-//
-//         Self(mask & value.0)
-//     }
-// }
+impl Integer for S256 {}

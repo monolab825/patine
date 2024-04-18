@@ -7,3 +7,7 @@ pub trait AsNativeType {
 pub trait FromNativeType {
     fn from_native_type(x: NativeType) -> Self;
 }
+
+pub trait Integer {}
+
+pub trait FixedBytes {}
