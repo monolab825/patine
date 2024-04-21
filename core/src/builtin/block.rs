@@ -26,26 +26,26 @@ pub fn coinbase() -> Address {
 }
 
 #[inline]
-pub fn timestamp() -> Address {
-    Address(unsafe { ffi::__yul_timestamp() })
+pub fn timestamp() -> U256 {
+    U256(unsafe { ffi::__yul_timestamp() })
 }
 
 #[inline]
-pub fn number() -> Address {
-    Address(unsafe { ffi::__yul_number() })
+pub fn number() -> U256 {
+    U256(unsafe { ffi::__yul_number() })
 }
 
 #[inline]
-pub fn difficulty() -> Address {
-    Address(unsafe { ffi::__yul_difficulty() })
+pub fn difficulty() -> U256 {
+    U256(unsafe { ffi::__yul_difficulty() })
 }
 
 #[inline]
-pub fn prevrandao() -> Address {
-    Address(unsafe { ffi::__yul_prevrandao() })
+pub fn prevrandao() -> Bytes32 {
+    Bytes32(unsafe { ffi::__yul_prevrandao() })
 }
 
 #[inline]
-pub fn gaslimit() -> Address {
-    Address(unsafe { ffi::__yul_gaslimit() })
+pub fn gaslimit() -> U256 {
+    U256(unsafe { ffi::__yul_gaslimit() })
 }

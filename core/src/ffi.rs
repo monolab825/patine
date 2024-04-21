@@ -1,5 +1,7 @@
 pub type NativeType = u64;
 
+pub type EntryFunction = extern "C" fn();
+
 extern "C" {
     /// Magic function to build literal number
     pub fn __yul__ext_literal(
@@ -209,4 +211,10 @@ extern "C" {
     pub fn __yul_prevrandao() -> NativeType;
     /// block gas limit of the current block
     pub fn __yul_gaslimit() -> NativeType;
+
+    pub fn __yul_datacopy(t: *mut u8, f: usize, l: usize);
+
+    pub fn __yul_objectsize(_f: EntryFunction) -> usize;
+
+    pub fn __yul_objectoffset(_f: EntryFunction) -> usize;
 }
