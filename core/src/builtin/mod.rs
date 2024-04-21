@@ -36,10 +36,10 @@ pub use data::*;
 
 #[macro_export]
 macro_rules! define_two_op {
-    ($op:ident, $x:ty, $y:ty, $r:ident, $f:ident) => {
+    ($op:ident, $f:ident) => {
         #[inline]
-        pub fn $op(x: $x, y: $y) -> $r {
-            $r(unsafe { ffi::$f(x.0, y.0) })
+        pub fn $op<R: FromNativeType>(x: impl AsNativeType, y: impl AsNativeType) -> R {
+            R::from_native_type(unsafe { ffi::$f(x.as_native_type(), y.as_native_type()) })
         }
     };
 }
