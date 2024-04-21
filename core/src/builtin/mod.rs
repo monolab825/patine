@@ -31,22 +31,15 @@ pub use block::*;
 pub mod transaction;
 pub use transaction::*;
 
+pub mod data;
+pub use data::*;
+
 #[macro_export]
 macro_rules! define_two_op {
     ($op:ident, $x:ty, $y:ty, $r:ident, $f:ident) => {
         #[inline]
         pub fn $op(x: $x, y: $y) -> $r {
             $r(unsafe { ffi::$f(x.0, y.0) })
-        }
-    };
-}
-
-#[macro_export]
-macro_rules! define_two_noreturn_op {
-    ($op:ident, $x:ty, $y:ty, $f:ident) => {
-        #[inline]
-        pub fn $op(x: $x, y: $y) {
-            unsafe { ffi::$f(x.0, y.0) }
         }
     };
 }

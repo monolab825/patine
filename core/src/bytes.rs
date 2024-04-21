@@ -1,4 +1,6 @@
-use crate::{ffi::NativeType, AsNativeType, FixedBytes, FromNativeType, U256};
+use core::ops::BitAnd;
+
+use crate::{ffi::NativeType, AsNativeType, FixedBytes, FromNativeType, S256, U256};
 
 #[repr(C)]
 pub struct Bytes32(pub(crate) NativeType);
@@ -22,6 +24,16 @@ impl From<U256> for Bytes32 {
         Self(value.0)
     }
 }
+
+impl From<S256> for Bytes32 {
+    fn from(value: S256) -> Self {
+        Self(value.0)
+    }
+}
+
+// impl BitAnd for Bytes32 {
+//     fn bitand(self, rhs: Self) -> Self::Output {}
+// }
 
 // #[repr(C)]
 // pub struct Bytes4(pub(crate) NativeType);
