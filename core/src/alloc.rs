@@ -1,9 +1,6 @@
 use core::{ptr, slice};
 
-use crate::{
-    __yul_add,
-    builtin::{self, __yul_mstore},
-};
+use crate::ffi;
 
 const STACK_BASE: usize = 0x40;
 const STACK_START: u64 = 0x60;
@@ -13,15 +10,15 @@ const STACK_START: u64 = 0x60;
 fn __yul_allocate(len: usize) -> *mut u8 {
     let stack_base = ptr::from_exposed_addr(STACK_BASE);
     let stack_base_mut = ptr::from_exposed_addr_mut(STACK_BASE);
-    let ptr = unsafe { builtin::__yul_mload(stack_base) };
+    let ptr = unsafe { ffi::__yul_mload(stack_base) };
 
-    let ptr = if unsafe { builtin::__yul_iszero(ptr) } {
+    let ptr = if unsafe { ffi::__yul_iszero(ptr) } {
         STACK_START
     } else {
         ptr
     };
 
-    unsafe { __yul_mstore(stack_base_mut, __yul_add(ptr, len as u64)) };
+    unsafe { ffi::__yul_mstore(stack_base_mut, ffi::__yul_add(ptr, len as u64)) };
 
     ptr::from_exposed_addr_mut(ptr as usize)
 }

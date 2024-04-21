@@ -19,6 +19,9 @@ pub use bytes::*;
 mod address;
 pub use address::*;
 
+mod alloc;
+pub use alloc::*;
+
 #[macro_export]
 macro_rules! define_two_op_trait {
     ($s:ty, $t:ty, $f:ident, $c: ident) => {
