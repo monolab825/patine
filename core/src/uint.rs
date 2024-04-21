@@ -2,20 +2,6 @@ use core::ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Shl, Shr, Sub};
 
 use crate::{ffi::*, AsNativeType, Bytes32, FromNativeType, Integer};
 
-macro_rules! defined_uint_ops {
-    ($s:ty, $t:ty, $f:ident, $n:ident) => {
-        impl $t for $s {
-            type Output = Self;
-
-            #[inline]
-            fn $f(self, rhs: Self) -> Self::Output {
-                let o = unsafe { $n(self.0, rhs.0) };
-                Self(o)
-            }
-        }
-    };
-}
-
 #[repr(C)]
 #[repr(align(32))]
 #[derive(Default, Clone, Copy)]

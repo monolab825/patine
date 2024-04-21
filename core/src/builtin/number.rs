@@ -51,9 +51,9 @@ where
 {
     R::from_native_type(unsafe { ffi::__yul_not(x.as_native_type()) })
 }
-define_two_op!(and, __yul_and);
-define_two_op!(or, __yul_or);
-define_two_op!(xor, __yul_xor);
+define_two_op!(bitand, __yul_and);
+define_two_op!(bitor, __yul_or);
+define_two_op!(bitxor, __yul_xor);
 define_two_op!(byte, __yul_byte);
 
 // bit shifts
