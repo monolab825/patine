@@ -1,4 +1,4 @@
-use crate::{ffi::NativeType, AsNativeType, FromNativeType};
+use crate::{ffi::NativeType, *};
 
 #[repr(C)]
 #[derive(Default, Clone, Copy)]
@@ -16,10 +16,22 @@ impl FromNativeType for Address {
     }
 }
 
-// impl From<Bytes32> for Address {
-//     fn from(value: Bytes32) -> Self {
-//         let mask = unsafe { builtin::__yul__ext_literal(0, 0, 0, 0xff, 0xff, 0xff, 0xff, 0xff) };
-//
-//         Self(mask & value.0)
-//     }
-// }
+macro_rules! define_address_from {
+    ($($ft:ty),*) => {
+        $(
+            impl From<$ft> for Address {
+                fn from(value: $ft) -> Self {
+                    Self(value.0)
+                }
+            }
+        )*
+    };
+}
+
+define_address_from!(
+    Bytes1, U8, S8, Bytes2, U16, S16, Bytes3, U24, S24, Bytes4, U32, S32, Bytes5, U40, S40, Bytes6,
+    U48, S48, Bytes7, U56, S56, Bytes8, U64, S64, Bytes9, U72, S72, Bytes10, U80, S80, Bytes11,
+    U88, S88, Bytes12, U96, S96, Bytes13, U104, S104, Bytes14, U112, S112, Bytes15, U120, S120,
+    Bytes16, U128, S128, Bytes17, U136, S136, Bytes18, U144, S144, Bytes19, U152, S152, Bytes20,
+    U160, S160
+);

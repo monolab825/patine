@@ -6,13 +6,15 @@
 
 - [ ] Core library.
   - [X] FFI
-  - [ ] Warpped Function
-  - [ ] UInt
-  - [ ] BytesN
-  - [ ] SInt
-  - [ ] Address
-- [ ] Std
+  - [X] Warpped Function
+  - [X] UInt
+  - [X] BytesN
+  - [X] SInt
+  - [X] Address
+  - [ ] Add `AsRef` and `AsMut`
+  - [X] Add From
   - [X] Memory
+- [ ] Std
   - [X] Selector
   - [ ] ABI
   - [ ] Contract

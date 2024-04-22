@@ -34,3 +34,14 @@ for i in range(1, 33):
 
     st += ");"
     print(st)
+
+print()
+
+st = "define_address_from!(";
+for i in range(1, 21):
+    bit_width = i * 8
+    st += "Bytes%s, U%s, S%s," % (i, bit_width, bit_width)
+st += ");"
+
+print(st)
+
