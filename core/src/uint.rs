@@ -4,7 +4,7 @@ use crate::{ffi::*, AsNativeType, Bytes32, FromNativeType, Integer};
 
 #[repr(C)]
 #[repr(align(32))]
-#[derive(Default, Clone, Copy)]
+#[derive(Clone, Copy)]
 pub struct U256(pub(crate) NativeType);
 
 impl AsNativeType for U256 {
@@ -22,29 +22,6 @@ impl FromNativeType for U256 {
 impl Integer for U256 {}
 
 // macro_rules! defined_uint {
-//     ($s:ident) => {
-//         #[repr(C)]
-//         #[repr(align(32))]
-//         #[derive(Default, Clone, Copy)]
-//         pub struct $s(pub(crate) NativeType);
-//
-//         impl $s {
-//             #[inline]
-//             pub fn from_raw(x0: u64, x1: u64, x2: u64, x3: u64) -> Self {
-//                 Self(unsafe { __yul__ext_literal(x0, x1, x2, x3) })
-//             }
-//         }
-//
-//         impl NativeTypeTrans for $s {
-//             fn as_native_type(&self) -> NativeType {
-//                 self.0
-//             }
-//
-//             fn from_native_type(x: NativeType) -> Self {
-//                 Self(x)
-//             }
-//         }
-//
 //         impl From<Bytes32> for $s {
 //             #[inline]
 //             fn from(value: Bytes32) -> Self {

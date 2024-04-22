@@ -1,9 +1,10 @@
-use core::ops::{
-    BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Not, Rem, RemAssign, Shl,
-    ShlAssign, Shr, ShrAssign,
+use core::{
+    cmp::{Eq, Ord, PartialEq, PartialOrd},
+    ops::{
+        BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Not, Rem, RemAssign, Shl,
+        ShlAssign, Shr, ShrAssign,
+    },
 };
-
-use seq_macro::seq;
 
 use crate::{
     builtin, define_two_assign_op_trait, define_two_op_trait, ffi::NativeType, AsNativeType,
@@ -12,8 +13,9 @@ use crate::{
 
 macro_rules! define_fixed_bytes {
     ($ty:ident, $($ft:ty),*) => {
-        #[derive(Clone, Copy)]
+        #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
         #[repr(C)]
+        #[repr(align(32))]
         pub struct $ty(pub(crate) NativeType);
 
         impl $ty {

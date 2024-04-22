@@ -31,15 +31,15 @@ extern "C" {
     /// bitwise “not” of x (every bit of x is negated)
     pub fn __yul_not(x: NativeType) -> NativeType;
     /// 1 if x < y, 0 otherwise
-    pub fn __yul_lt(x: NativeType, y: NativeType) -> NativeType;
+    pub fn __yul_lt(x: NativeType, y: NativeType) -> bool;
     /// 1 if x > y, 0 otherwise
-    pub fn __yul_gt(x: NativeType, y: NativeType) -> NativeType;
+    pub fn __yul_gt(x: NativeType, y: NativeType) -> bool;
     /// 1 if x < y, 0 otherwise, for signed numbers in two’s complement
-    pub fn __yul_slt(x: NativeType, y: NativeType) -> NativeType;
+    pub fn __yul_slt(x: NativeType, y: NativeType) -> bool;
     /// 1 if x > y, 0 otherwise, for signed numbers in two’s complement
-    pub fn __yul_sgt(x: NativeType, y: NativeType) -> NativeType;
+    pub fn __yul_sgt(x: NativeType, y: NativeType) -> bool;
     /// 1 if x == y, 0 otherwise
-    pub fn __yul_eq(x: NativeType, y: NativeType) -> NativeType;
+    pub fn __yul_eq(x: NativeType, y: NativeType) -> bool;
     /// 1 if x == 0, 0 otherwise
     pub fn __yul_iszero(x: NativeType) -> bool;
     /// bitwise “and” of x and y

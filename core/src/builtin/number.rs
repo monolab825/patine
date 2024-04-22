@@ -1,4 +1,4 @@
-use crate::{define_two_op, ffi, AsNativeType, FromNativeType};
+use crate::{define_two_op, define_two_op_native_return, ffi, AsNativeType, FromNativeType};
 
 // operations
 
@@ -32,12 +32,12 @@ where
 
 // compare
 
-define_two_op!(lt, __yul_lt);
-define_two_op!(gt, __yul_gt);
-define_two_op!(slt, __yul_slt);
-define_two_op!(sgt, __yul_sgt);
-define_two_op!(eq, __yul_eq);
-#[inline]
+define_two_op_native_return!(lt, __yul_lt, bool);
+define_two_op_native_return!(gt, __yul_gt, bool);
+define_two_op_native_return!(slt, __yul_slt, bool);
+define_two_op_native_return!(sgt, __yul_sgt, bool);
+define_two_op_native_return!(eq, __yul_eq, bool);
+
 pub fn iszero(x: impl AsNativeType) -> bool {
     unsafe { ffi::__yul_iszero(x.as_native_type()) }
 }

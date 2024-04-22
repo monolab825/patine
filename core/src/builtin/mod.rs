@@ -45,6 +45,16 @@ macro_rules! define_two_op {
 }
 
 #[macro_export]
+macro_rules! define_two_op_native_return {
+    ($op:ident, $f:ident, $r:ty) => {
+        #[inline]
+        pub fn $op(x: impl AsNativeType, y: impl AsNativeType) -> $r {
+            unsafe { ffi::$f(x.as_native_type(), y.as_native_type()) }
+        }
+    };
+}
+
+#[macro_export]
 macro_rules! define_one {
     ($op:ident, $x:ty, $r:ident, $f:ident) => {
         #[inline]
