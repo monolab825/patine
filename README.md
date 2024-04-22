@@ -13,6 +13,8 @@
   - [X] Address
   - [ ] Add `AsRef` and `AsMut`
   - [X] Add From
+  - [ ] Add `TryFrom`
+  - [ ] Add "UnsafeFrom" and `UnsafeInto`
   - [X] Memory
 - [ ] Std
   - [X] Selector

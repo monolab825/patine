@@ -1,8 +1,8 @@
-use patine_core::builtin::revert_null;
+use patine_core::builtin::revert;
 
 #[inline]
 pub fn require(cond: bool) {
     if cond {
-        revert_null()
+        revert(&[])
     }
 }

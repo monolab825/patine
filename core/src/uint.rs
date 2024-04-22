@@ -223,3 +223,9 @@ define_uint!(
     Bytes21, S168, Bytes22, S176, Bytes23, S184, Bytes24, S192, Bytes25, S200, Bytes26, S208,
     Bytes27, S216, Bytes28, S224, Bytes29, S232, Bytes30, S240, Bytes31, S248, Bytes32, S256
 );
+
+impl From<u64> for U256 {
+    fn from(value: u64) -> Self {
+        Self(value)
+    }
+}

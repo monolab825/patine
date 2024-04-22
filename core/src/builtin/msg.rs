@@ -1,7 +1,7 @@
 use crate::{define_zero, ffi, Address, FromNativeType, U256};
 
 define_zero!(gas, U256, __yul_gas);
-define_zero!(address, U256, __yul_gas);
+define_zero!(address, Address, __yul_address);
 define_zero!(selfbalance, U256, __yul_selfbalance);
 
 define_zero!(caller, Address, __yul_caller);

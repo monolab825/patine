@@ -1,8 +1,8 @@
 use core::{
     cmp::{Eq, Ord, PartialEq, PartialOrd},
     ops::{
-        BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Not, Rem, RemAssign, Shl,
-        ShlAssign, Shr, ShrAssign,
+        BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Not, Shl, ShlAssign, Shr,
+        ShrAssign,
     },
 };
 
@@ -62,13 +62,24 @@ macro_rules! define_fixed_bytes {
             }
         }
 
-        define_two_op_trait!($ty, Rem, umod, rem);
-        define_two_assign_op_trait!($ty, RemAssign, umod, rem_assign);
+        impl Shl<U256> for $ty {
+            type Output = $ty;
 
-        define_two_op_trait!($ty, Shl, shl, shl);
+            #[inline]
+            fn shl(self, rhs: U256) -> Self::Output {
+                builtin::shl(self, rhs)
+            }
+        }
         define_two_assign_op_trait!($ty, ShlAssign, shl, shl_assign);
 
-        define_two_op_trait!($ty, Shr, shr, shr);
+        impl Shr<U256> for $ty {
+            type Output = $ty;
+
+            #[inline]
+            fn shr(self, rhs: U256) -> Self::Output {
+                builtin::shr(self, rhs)
+            }
+        }
         define_two_assign_op_trait!($ty, ShrAssign, shr, shr_assign);
     };
 }
@@ -200,3 +211,9 @@ define_fixed_bytes!(
     U144, S144, U152, S152, U160, S160, U168, S168, U176, S176, U184, S184, U192, S192, U200, S200,
     U208, S208, U216, S216, U224, S224, U232, S232, U240, S240, U248, S248, U256, S256
 );
+
+impl Bytes4 {
+    pub fn unchecked_from(v: Bytes32) -> Self {
+        Self(v.as_native_type())
+    }
+}
