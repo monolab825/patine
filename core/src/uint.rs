@@ -1,84 +1,111 @@
-use core::ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Shl, Shr, Sub};
+use core::ops::{
+    Add, AddAssign, BitAnd, BitAndAssign, BitOr, BitOrAssign, BitXor, BitXorAssign, Div, DivAssign,
+    Mul, MulAssign, Not, Rem, RemAssign, Shl, ShlAssign, Shr, ShrAssign, Sub, SubAssign,
+};
 
-use crate::{ffi::*, AsNativeType, Bytes32, FromNativeType, Integer};
+use crate::{ffi::NativeType, *};
 
-#[repr(C)]
-#[repr(align(32))]
-#[derive(Clone, Copy)]
-pub struct U256(pub(crate) NativeType);
+macro_rules! define_uint {
+    ($ty:ident, $($ft:ty),*) => {
+        #[repr(C)]
+        #[repr(align(32))]
+        #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+        pub struct $ty(pub(crate) NativeType);
 
-impl AsNativeType for U256 {
-    fn as_native_type(&self) -> NativeType {
-        self.0
-    }
+        impl AsNativeType for $ty {
+            fn as_native_type(&self) -> NativeType {
+                self.0
+            }
+        }
+
+        impl FromNativeType for $ty {
+            fn from_native_type(x: NativeType) -> Self {
+                Self(x)
+            }
+        }
+
+        impl Integer for $ty {}
+
+        $(
+            impl From<$ft> for $ty {
+                #[inline]
+                fn from(value: $ft) -> Self {
+                    Self(value.0)
+                }
+            }
+        )*
+
+
+        define_two_op_trait!($ty, Add, add, add);
+        define_two_assign_op_trait!($ty, AddAssign, add, add_assign);
+
+        define_two_op_trait!($ty, Sub, sub, sub);
+        define_two_assign_op_trait!($ty, SubAssign, sub, sub_assign);
+
+        define_two_op_trait!($ty, Mul, mul, mul);
+        define_two_assign_op_trait!($ty, MulAssign, mul, mul_assign);
+
+        define_two_op_trait!($ty, Div, udiv, div);
+        define_two_assign_op_trait!($ty, DivAssign, udiv, div_assign);
+
+        define_two_op_trait!($ty, Rem, umod, rem);
+        define_two_assign_op_trait!($ty, RemAssign, umod, rem_assign);
+
+        define_two_op_trait!($ty, Shr, shr, shr);
+        define_two_assign_op_trait!($ty, ShrAssign, shr, shr_assign);
+
+        define_two_op_trait!($ty, Shl, shl, shl);
+        define_two_assign_op_trait!($ty, ShlAssign, shl, shl_assign);
+
+        define_two_op_trait!($ty, BitAnd, bitand, bitand);
+        define_two_assign_op_trait!($ty, BitAndAssign, bitand, bitand_assign);
+
+        define_two_op_trait!($ty, BitOr, bitor, bitor);
+        define_two_assign_op_trait!($ty, BitOrAssign, bitor, bitor_assign);
+
+        define_two_op_trait!($ty, BitXor, bitxor, bitxor);
+        define_two_assign_op_trait!($ty, BitXorAssign, bitxor, bitxor_assign);
+
+        impl Not for $ty {
+            type Output = Self;
+
+            #[inline]
+            fn not(self) -> Self::Output {
+                builtin::not(self)
+            }
+        }
+    };
 }
 
-impl FromNativeType for U256 {
-    fn from_native_type(x: NativeType) -> Self {
-        Self(x)
-    }
-}
-
-impl Integer for U256 {}
-
-// macro_rules! defined_uint {
-//         impl From<Bytes32> for $s {
-//             #[inline]
-//             fn from(value: Bytes32) -> Self {
-//                 Self(value.0)
-//             }
-//         }
-//
-//         defined_uint_ops!($s, Add, add, __yul_add);
-//         defined_uint_ops!($s, Sub, sub, __yul_sub);
-//         defined_uint_ops!($s, Mul, mul, __yul_mul);
-//         defined_uint_ops!($s, Div, div, __yul_div);
-//         defined_uint_ops!($s, Rem, rem, __yul_mod);
-//
-//         defined_uint_ops!($s, Shr, shr, __yul_shr);
-//         defined_uint_ops!($s, Shl, shl, __yul_shl);
-//
-//         defined_uint_ops!($s, BitAnd, bitand, __yul_and);
-//         defined_uint_ops!($s, BitOr, bitor, __yul_or);
-//         defined_uint_ops!($s, BitXor, bitxor, __yul_xor);
-//
-//         impl Not for $s {
-//             type Output = Self;
-//
-//             #[inline]
-//             fn not(self) -> Self::Output {
-//                 Self(!self.0)
-//             }
-//         }
-//
-//         impl PartialEq for $s {
-//             #[inline]
-//             fn eq(&self, other: &Self) -> bool {
-//                 self.0.eq(&other.0)
-//             }
-//         }
-//
-//         impl Eq for $s {}
-//
-//         impl PartialOrd for $s {
-//             #[inline]
-//             fn partial_cmp(&self, other: &Self) -> Option<core::cmp::Ordering> {
-//                 Some(self.cmp(other))
-//             }
-//         }
-//
-//         impl Ord for $s {
-//             #[inline]
-//             fn cmp(&self, other: &Self) -> core::cmp::Ordering {
-//                 self.0.cmp(&other.0)
-//             }
-//         }
-//     };
-// }
-//
-// defined_uint!(U256);
-// defined_uint!(U128);
-// defined_uint!(U64);
-// defined_uint!(U32);
-// defined_uint!(U16);
-// defined_uint!(U8);
+define_uint!(U8, Bytes1, S8);
+define_uint!(U16, Bytes2, S16);
+define_uint!(U24, Bytes3, S24);
+define_uint!(U32, Bytes4, S32);
+define_uint!(U40, Bytes5, S40);
+define_uint!(U48, Bytes6, S48);
+define_uint!(U56, Bytes7, S56);
+define_uint!(U64, Bytes8, S64);
+define_uint!(U72, Bytes9, S72);
+define_uint!(U80, Bytes10, S80);
+define_uint!(U88, Bytes11, S88);
+define_uint!(U96, Bytes12, S96);
+define_uint!(U104, Bytes13, S104);
+define_uint!(U112, Bytes14, S112);
+define_uint!(U120, Bytes15, S120);
+define_uint!(U128, Bytes16, S128);
+define_uint!(U136, Bytes17, S136);
+define_uint!(U144, Bytes18, S144);
+define_uint!(U152, Bytes19, S152);
+define_uint!(U160, Bytes20, S160);
+define_uint!(U168, Bytes21, S168);
+define_uint!(U176, Bytes22, S176);
+define_uint!(U184, Bytes23, S184);
+define_uint!(U192, Bytes24, S192);
+define_uint!(U200, Bytes25, S200);
+define_uint!(U208, Bytes26, S208);
+define_uint!(U216, Bytes27, S216);
+define_uint!(U224, Bytes28, S224);
+define_uint!(U232, Bytes29, S232);
+define_uint!(U240, Bytes30, S240);
+define_uint!(U248, Bytes31, S248);
+define_uint!(U256, Bytes32, S256);
