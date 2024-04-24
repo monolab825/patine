@@ -8,8 +8,8 @@ const STACK_START: u64 = 0x60;
 #[inline(never)]
 #[no_mangle]
 fn __yul_allocate(len: usize) -> *mut u8 {
-    let stack_base = ptr::from_exposed_addr(STACK_BASE);
-    let stack_base_mut = ptr::from_exposed_addr_mut(STACK_BASE);
+    let stack_base = ptr::without_provenance(STACK_BASE);
+    let stack_base_mut = ptr::without_provenance_mut(STACK_BASE);
     let ptr = unsafe { ffi::__yul_mload(stack_base) };
 
     let ptr = if unsafe { ffi::__yul_iszero(ptr) } {
@@ -20,7 +20,7 @@ fn __yul_allocate(len: usize) -> *mut u8 {
 
     unsafe { ffi::__yul_mstore(stack_base_mut, ffi::__yul_add(ptr, len as u64)) };
 
-    ptr::from_exposed_addr_mut(ptr as usize)
+    ptr::without_provenance_mut(ptr as usize)
 }
 
 #[inline]

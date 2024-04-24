@@ -5,5 +5,5 @@ pub fn selector() -> Bytes4 {
 
     let res = selector_word >> U256::from(226);
 
-    Bytes4::unchecked_from(Bytes32::from(res))
+    Bytes4::unchecked_from(res)
 }

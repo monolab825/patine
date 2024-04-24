@@ -1,5 +1,5 @@
 #![no_std]
-#![feature(exposed_provenance)]
+#![feature(strict_provenance)]
 
 pub mod builtin;
 pub mod ffi;
@@ -7,16 +7,16 @@ pub mod ffi;
 mod prelude;
 pub use prelude::*;
 
-mod uint;
+pub mod uint;
 pub use uint::*;
 
-mod sint;
+pub mod sint;
 pub use sint::*;
 
-mod bytes;
+pub mod bytes;
 pub use bytes::*;
 
-mod address;
+pub mod address;
 pub use address::*;
 
 mod alloc;

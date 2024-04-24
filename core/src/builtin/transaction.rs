@@ -1,4 +1,4 @@
-use crate::{ffi, Address, AsNativeType, U256};
+use crate::{ffi, Address, AsNativeType, Bytes32, U256};
 
 #[inline]
 pub fn origin() -> Address {
@@ -11,6 +11,6 @@ pub fn gasprice() -> U256 {
 }
 
 #[inline]
-pub fn blobhash(b: U256) -> U256 {
-    U256(unsafe { ffi::__yul_blockhash(b.as_native_type()) })
+pub fn blobhash(b: U256) -> Bytes32 {
+    Bytes32(unsafe { ffi::__yul_blockhash(b.as_native_type()) })
 }
