@@ -49,4 +49,26 @@ cargo evm new "<your-project-name>"
 
 ## Write Contract
 
-Please add your contract file under `src`.
+Please add your contract file under `src`. We use simple store contract as example.
+
+```rust
+use patine::{storage::{Value, Storage}, U256};
+
+#[contract]
+pub struct Contract {
+    value: Value<U256, Storage>,
+}
+
+#[contract]
+impl Contract {
+    #[expose]
+    pub fn store(&mut self, value: U256) {
+        self.value.set(value)
+    }
+
+    #[expose]
+    pub fn load() -> U256 {
+        self.value.get()
+    }
+}
+```
