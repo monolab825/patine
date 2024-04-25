@@ -1,5 +1,7 @@
 use patine_core::{builtin, Address, U256};
 
+use crate::data::{Calldata, Data};
+
 pub struct Context {}
 
 impl Context {
@@ -15,7 +17,9 @@ impl Context {
         builtin::callvalue()
     }
 
-    // pub fn calldata(&self) -> impl Data {}
+    pub fn calldata(&self) -> impl Data {
+        Calldata {}
+    }
 
     // pub fn return_data(&self) -> impl Data {}
 }

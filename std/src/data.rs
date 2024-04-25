@@ -1,4 +1,4 @@
-use patine_core::{builtin, Address, FromNativeType};
+use patine_core::{allocate, builtin, deallocate, Address, FromNativeType};
 
 pub trait Data {
     fn size(&self) -> usize;
@@ -9,11 +9,13 @@ pub trait Data {
     where
         R: FromNativeType,
     {
-        let mut res = [0u8; 32];
+        let res = allocate(32);
 
-        self.copy(offset, &mut res);
+        self.copy(offset, res);
 
-        builtin::mload(&res)
+        deallocate(32);
+
+        builtin::mload(res)
     }
 }
 
@@ -60,5 +62,17 @@ impl Data for Calldata {
         R: FromNativeType,
     {
         builtin::calldataload(offset)
+    }
+}
+
+pub struct ReturnData {}
+
+impl Data for ReturnData {
+    fn size(&self) -> usize {
+        builtin::returndatasize()
+    }
+
+    fn copy(&self, offset: usize, target: &mut [u8]) {
+        builtin::returndatacopy(target, offset)
     }
 }

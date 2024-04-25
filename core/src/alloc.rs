@@ -1,6 +1,6 @@
 use core::{ptr, slice};
 
-use crate::{ffi, AsNativeType};
+use crate::ffi;
 
 const STACK_BASE: usize = 0x40;
 const STACK_START: u64 = 0x60;
@@ -30,13 +30,12 @@ pub fn allocate<'a>(len: usize) -> &'a mut [u8] {
 }
 
 #[inline]
-pub fn push(arg: impl AsNativeType) {
-    let res = allocate(32);
+pub fn deallocate(len: usize) {
+    let stack_base = ptr::without_provenance(STACK_BASE);
+    let stack_base_mut = ptr::without_provenance_mut(STACK_BASE);
 
-    unsafe { ffi::__yul_mstore(res.as_mut_ptr(), arg.as_native_type()) }
-}
+    let current = unsafe { ffi::__yul_mload(stack_base) };
+    let next = unsafe { ffi::__yul_sub(current, len as u64) };
 
-#[inline]
-pub fn pop() {
-    // check is empty
+    unsafe { ffi::__yul_mstore(stack_base_mut, next) };
 }
