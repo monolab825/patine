@@ -4,6 +4,14 @@
 
 ## Features and TODO
 
+- Generate EVM bytecode from Rust code.
+- Contract compostion.
+- Call contract in contract.
+- Follow the soldity ABI and call convention.
+- Generate ABI.
+- Generate client SDK.
+
+
 - [ ] Core library.
   - [X] FFI
   - [X] Warpped Function
@@ -19,11 +27,11 @@
 - [ ] Std
   - [X] Selector
   - [ ] ABI
-  - [ ] Contract
-  - [ ] Context
-    - [ ] Call
-    - [ ] Transaction
-    - [ ] Block
+  - [X] Contract
+  - [X] Context
+    - [X] Msg
+    - [X] Transaction
+    - [X] Block
 - [ ] Macros
   - [ ] Contract
   - [ ] uint!

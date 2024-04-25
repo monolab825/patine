@@ -1,6 +1,6 @@
 use core::{ptr, slice};
 
-use crate::ffi;
+use crate::{ffi, AsNativeType};
 
 const STACK_BASE: usize = 0x40;
 const STACK_START: u64 = 0x60;
@@ -27,4 +27,16 @@ fn __yul_allocate(len: usize) -> *mut u8 {
 pub fn allocate<'a>(len: usize) -> &'a mut [u8] {
     let ptr = __yul_allocate(len);
     unsafe { slice::from_raw_parts_mut(ptr, len) }
+}
+
+#[inline]
+pub fn push(arg: impl AsNativeType) {
+    let res = allocate(32);
+
+    unsafe { ffi::__yul_mstore(res.as_mut_ptr(), arg.as_native_type()) }
+}
+
+#[inline]
+pub fn pop() {
+    // check is empty
 }

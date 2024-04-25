@@ -17,6 +17,8 @@ pub mod tx;
 
 pub mod block;
 
+pub mod data;
+
 mod event;
 pub use event::*;
 
