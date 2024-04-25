@@ -45,3 +45,20 @@ impl Data for Code {
 }
 
 pub struct Calldata {}
+
+impl Data for Calldata {
+    fn size(&self) -> usize {
+        builtin::calldatasize()
+    }
+
+    fn copy(&self, offset: usize, target: &mut [u8]) {
+        builtin::calldatacopy(target, offset)
+    }
+
+    fn load<R>(&self, offset: usize) -> R
+    where
+        R: FromNativeType,
+    {
+        builtin::calldataload(offset)
+    }
+}

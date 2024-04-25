@@ -97,7 +97,7 @@ extern "C" {
     /// wei sent together with the current call
     pub fn __yul_callvalue() -> NativeType;
     /// call data starting from position p (32 bytes)
-    pub fn __yul_calldataload(p: NativeType) -> NativeType;
+    pub fn __yul_calldataload(p: usize) -> NativeType;
     /// size of call data in bytes
     pub fn __yul_calldatasize() -> usize;
     /// copy s bytes from calldata at position f to mem at position t

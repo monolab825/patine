@@ -8,11 +8,11 @@ define_zero!(caller, Address, __yul_caller);
 define_zero!(callvalue, U256, __yul_callvalue);
 
 #[inline]
-pub fn calldataload<T>(p: U256) -> T
+pub fn calldataload<T>(p: usize) -> T
 where
     T: FromNativeType,
 {
-    let r = unsafe { ffi::__yul_calldataload(p.0) };
+    let r = unsafe { ffi::__yul_calldataload(p) };
     T::from_native_type(r)
 }
 
