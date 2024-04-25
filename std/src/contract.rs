@@ -1,6 +1,11 @@
 use patine_core::{builtin, Address, U256};
 
-use crate::{context::Context, tx::Transaction, Event};
+use crate::{
+    context::Context,
+    data::{Code, Data},
+    tx::Transaction,
+    Event,
+};
 
 pub trait Contract {
     fn new(address: Address) -> Self;
@@ -21,7 +26,12 @@ pub trait Contract {
         }
     }
 
-    // fn code(&self) -> impl Data {}
+    fn code(&self) -> impl Data {
+        match self.selfaddress() {
+            Some(a) => Code::new(*a),
+            None => Code::default(),
+        }
+    }
 
     fn context(&self) -> Context {
         Context {}
